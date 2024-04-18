@@ -18,3 +18,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+/*Game specifications
+-Word Search game
+-around 10x10 grid size
+-words from API
+-random letters in all other grid slots
+-horizontal and vertical
+    -add words first
+    -fill rest with random
+-scoring system in state variable
+-add selected letters into stack
+-etc
+
+
+
+*/
