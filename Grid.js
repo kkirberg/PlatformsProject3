@@ -2,10 +2,31 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
 
 export default function Grid(){
-    let arr = []; 
+    let words = ["GARY", "CHRISTIAN", "KEARA"];
+    
+    let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+    let arr = Array(100).fill('0');
+
+    //Horizontal insert
+    for(let i=0; i<words.length; ++i){
+        let curWord = words[i];
+        let curLength = curWord.length;
+        let row = Math.floor(Math.random() * 9) * 10;
+        let startingCol = Math.floor(Math.random() * (9 - curLength));
+        for(let j=0; j<curLength; ++j){
+            let index = row+startingCol+j;
+            arr[index] = curWord[j];
+        }
+
+    }
+
+    console.log(arr); 
+    //Placing random letters in unfilled spots in grid
     for(let i=0; i<100; ++i) {
-        j = i % 10;
-        arr = arr.concat([j]);
+        let rand = Math.floor(Math.random() * 25);
+        if(arr[i] == '0'){
+            arr[i] = letters[rand];
+        }
     }
     
     return(
