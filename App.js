@@ -5,8 +5,10 @@ import Grid from './Grid';
 
 export default function App() {
   return (
-    <View>
+    <View style={styles.container}>
+      <Text>Open up Appjs. to start working on your app!</Text>
       <Grid />
+      <StatusBar style="auto"/>
     </View>
   );
 }
