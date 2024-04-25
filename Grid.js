@@ -73,30 +73,5 @@ export default function Grid(){
         }
     }
     
-    return(
-        <View style={styles.container}>
-            <FlatList
-              data={arr}
-              numColumns={10}
-              renderItem={({item}) => 
-              <Text style={styles.item}>{item}</Text>
-              }
-            />
-        </View>
-    );
+    return(arr);
 }
-
-const styles = StyleSheet.create({
-    container: {
-     paddingTop: 50
-    },
-    item: {
-      padding: 10,
-      fontSize: 18,
-      height: 54,
-    },
-    border: {
-      borderWidth: 1,
-      borderColor: "gray",
-    }
-  }); 
