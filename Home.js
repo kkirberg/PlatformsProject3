@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image } fro
 export default function Home () {
     return(
         <View style={styles.container}>
-            <Image resizeMode='contain' source={require('./wordsearchlogo.png')} />
+            <Image style={styles.image} source={require('./wordsearchlogo.png')} />
             <Button title='Click to play Word Search Game!'
                 onPress={()=>console.log("button")} 
             />
@@ -24,5 +24,9 @@ const styles = StyleSheet.create({
     border: {
       borderWidth: 1,
       borderColor: "gray",
-    }
+    },
+    image: {
+      width: 400,
+      height: 400,
+    },
   });  
