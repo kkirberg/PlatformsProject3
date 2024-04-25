@@ -7,22 +7,52 @@ export default function Grid(){
     let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     let arr = Array(100).fill('0');
 
-    //Horizontal insert
+    
     for(let i=0; i<words.length; ++i){
+        const insert = Math.floor(Math.random() * 2);
+        console.log(insert)
         let curWord = words[i];
-        let curLength = curWord.length;
-        let row = Math.floor(Math.random() * 9) * 10;
-        let startingCol = Math.floor(Math.random() * (9 - curLength));
+        if(insert == 0){
+            //Vertical insert
+            let startingRow =  Math.floor(Math.random() * (10 - curWord.length)) * 10;
+            let col = Math.floor(Math.random() * 10);
+
+            let isValid = true;
+            for(let j=0; j<curWord.length; ++j){
+                let increment = j*10;
+                let index = startingRow+col+increment;
+                if(arr[index] != '0'){
+                    isValid = false;
+                }
+            }
+            if(isValid){
+                for(let j=0; j<curWord.length; ++j){
+                    let increment = j*10;
+                    let index = startingRow+col+increment;
+                    arr[index] = curWord[j];
+                }
+            }
+            else{
+                --i;
+            }
+        }
+        else{
+        //Horizontal insert
+        let row = Math.floor(Math.random() * 10) * 10;
+        let startingCol = Math.floor(Math.random() * (10 - curWord.length));
         
+        //Checking if all spaces are empty
+        //If so, place all the letter of the word
+        //If not, the word's location must be randomized again
         let isValid = true;
-        for(let j=0; j<curLength; ++j){
+        for(let j=0; j<curWord.length; ++j){
             let index = row+startingCol+j;
             if(arr[index] != '0'){
                 isValid = false;
             }
         }
         if (isValid){
-            for(let j=0; j<curLength; ++j){
+            for(let j=0; j<curWord.length; ++j){
                 let index = row+startingCol+j;
                 arr[index] = curWord[j];
             }
@@ -30,7 +60,7 @@ export default function Grid(){
         else{
             --i;
         }
-        //problem, must check if each other's names override
+    }
 
     }
 
