@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
+import API_Words from "./API_Words";
 
 export default function Grid(){
-    let words = ["GARY", "CHRISTIAN", "KEARA"];
+    let words = API_Words();
     
     let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     let arr = Array(100).fill('0');
@@ -36,33 +37,36 @@ export default function Grid(){
                 --i;
             }
         }
-        else{
-        //Horizontal insert
-        let row = Math.floor(Math.random() * 10) * 10;
-        let startingCol = Math.floor(Math.random() * (10 - curWord.length));
-        
-        //Checking if all spaces are empty
-        //If so, place all the letter of the word
-        //If not, the word's location must be randomized again
-        let isValid = true;
-        for(let j=0; j<curWord.length; ++j){
-            let index = row+startingCol+j;
-            if(arr[index] != '0'){
-                isValid = false;
-            }
-        }
-        if (isValid){
+        else if (insert == 1){
+            //Horizontal insert
+            let row = Math.floor(Math.random() * 10) * 10;
+            let startingCol = Math.floor(Math.random() * (10 - curWord.length));
+            
+            //Checking if all spaces are empty
+            //If so, place all the letter of the word
+            //If not, the word's location must be randomized again
+            let isValid = true;
             for(let j=0; j<curWord.length; ++j){
                 let index = row+startingCol+j;
-                arr[index] = curWord[j];
+                if(arr[index] != '0'){
+                    isValid = false;
+                }
+            }
+            if (isValid){
+                for(let j=0; j<curWord.length; ++j){
+                    let index = row+startingCol+j;
+                    arr[index] = curWord[j];
+                }
+            }
+            else{
+                --i;
             }
         }
-        else{
-            --i;
-        }
-    }
+        //add reverse horizontal, reverse vertical, and diagonal placements   
 
     }
+
+
 
     console.log(arr);
     //Placing random letters in unfilled spots in grid
