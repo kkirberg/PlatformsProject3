@@ -18,16 +18,19 @@ export default function Word_Selector(){
 }
 
 const styles = StyleSheet.create({
-    container: {
-     paddingTop: 50
-    },
-    item: {
-      padding: 10,
-      fontSize: 18,
-      height: 54,
-    },
-    border: {
-      borderWidth: 1,
-      borderColor: "gray",
-    }
-  }); 
+    app: {
+        flex: 4, // the number of columns you want to devide the screen into
+        marginHorizontal: "auto",
+        width: 400
+      },
+      item: {
+        flex: 1,
+        maxWidth: "25%", // 100% devided by the number of rows you want
+        alignItems: "center",
+        
+        // my visual styles; not important for the grid
+        padding: 15,
+        borderWidth: 2,
+        borderColor: "#fff"
+      }
+    });
