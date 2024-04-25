@@ -13,10 +13,24 @@ export default function Grid(){
         let curLength = curWord.length;
         let row = Math.floor(Math.random() * 9) * 10;
         let startingCol = Math.floor(Math.random() * (9 - curLength));
+        
+        let isValid = true;
         for(let j=0; j<curLength; ++j){
             let index = row+startingCol+j;
-            arr[index] = curWord[j];
+            if(arr[index] != '0'){
+                isValid = false;
+            }
         }
+        if (isValid){
+            for(let j=0; j<curLength; ++j){
+                let index = row+startingCol+j;
+                arr[index] = curWord[j];
+            }
+        }
+        else{
+            --i;
+        }
+        //problem, must check if each other's names override
 
     }
 
