@@ -12,10 +12,10 @@ import Word_Select from './Word_Select';
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator initialRouteName='Word_Select'>
         <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='Grid' component={Grid} />
-        <Stack.Screen name='Word_Selectr' component={Word_Select} />
+        <Stack.Screen name='Word_Select' component={Word_Select} />
       </Stack.Navigator>
     </NavigationContainer>
   );

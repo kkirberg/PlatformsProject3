@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
+import Grid from './Grid';
 
 export default function Word_Selector(){ 
     let array = Grid();
     return(
         <View style={styles.container}>
             <FlatList
-              data={arr}
+              data={array}
               numColumns={10}
               renderItem={({item}) => 
               <Text style={styles.item}>{item}</Text>
