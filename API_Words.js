@@ -5,6 +5,6 @@ export default function API_Words() {
     //Put API here
 
     //temp array
-    let words = ["Cat", "Dog", "Mouse", "Bull", "Tiger", "Lion", "Eagle"];
+    let words = ["CAT", "DOG", "MOUSE", "BULL", "TIGER", "LION", "EAGLE"];
     return(words);
 }

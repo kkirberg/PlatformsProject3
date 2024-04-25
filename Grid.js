@@ -8,74 +8,103 @@ export default function Grid(){
     let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
     let arr = Array(100).fill('0');
 
-    
-    for(let i=0; i<words.length; ++i){
-        const insert = Math.floor(Math.random() * 2);
+    let i = 0;
+    for(; i<words.length; ++i){
+        const insert = Math.floor(Math.random() * 4);
         console.log(insert)
         let curWord = words[i];
-        if(insert == 0){
-            //Vertical insert
-            let startingRow =  Math.floor(Math.random() * (10 - curWord.length)) * 10;
-            let col = Math.floor(Math.random() * 10);
+        
+        switch(insert){
+            case 0:
+                verticalInsert(curWord);
+                break;
+            case 1:
+                curWord = reverseWord(curWord);
+                verticalInsert(curWord);
+                break;
+            case 2:
+                horizontalInsert(curWord);
+                break;
+            case 3:
+                curWord = reverseWord(curWord);
+                horizontalInsert(curWord);
+                break;
+        }
 
-            let isValid = true;
+        //add all diagonal placements   
+
+    }
+
+    function verticalInsert(curWord){
+        //Vertical insert
+        const startingRow =  Math.floor(Math.random() * (10 - curWord.length)) * 10;
+        const col = Math.floor(Math.random() * 10);
+
+        //Checking if all spaces are empty
+        //If so, place all the letter of the word
+        let isValid = true;
+        for(let j=0; j<curWord.length; ++j){
+            let increment = j*10;
+            let index = startingRow+col+increment;
+            if(arr[index] != '0'){
+                isValid = false;
+            }
+        }
+        if(isValid){
             for(let j=0; j<curWord.length; ++j){
                 let increment = j*10;
                 let index = startingRow+col+increment;
-                if(arr[index] != '0'){
-                    isValid = false;
-                }
-            }
-            if(isValid){
-                for(let j=0; j<curWord.length; ++j){
-                    let increment = j*10;
-                    let index = startingRow+col+increment;
-                    arr[index] = curWord[j];
-                }
-            }
-            else{
-                --i;
+                arr[index] = curWord[j];
             }
         }
-        else if (insert == 1){
-            //Horizontal insert
-            let row = Math.floor(Math.random() * 10) * 10;
-            let startingCol = Math.floor(Math.random() * (10 - curWord.length));
-            
-            //Checking if all spaces are empty
-            //If so, place all the letter of the word
-            //If not, the word's location must be randomized again
-            let isValid = true;
-            for(let j=0; j<curWord.length; ++j){
-                let index = row+startingCol+j;
-                if(arr[index] != '0'){
-                    isValid = false;
-                }
-            }
-            if (isValid){
-                for(let j=0; j<curWord.length; ++j){
-                    let index = row+startingCol+j;
-                    arr[index] = curWord[j];
-                }
-            }
-            else{
-                --i;
-            }
+        else{ //If not, the word's location must be randomized again
+            --i;
         }
-        //add reverse horizontal, reverse vertical, and diagonal placements   
+    }
 
+    function horizontalInsert(curWord){
+         //Horizontal insert
+         const row = Math.floor(Math.random() * 10) * 10;
+         const startingCol = Math.floor(Math.random() * (10 - curWord.length));
+         
+         //Checking if all spaces are empty
+         //If so, place all the letter of the word
+         let isValid = true;
+         for(let j=0; j<curWord.length; ++j){
+             let index = row+startingCol+j;
+             if(arr[index] != '0'){
+                 isValid = false;
+             }
+         }
+         if (isValid){
+             for(let j=0; j<curWord.length; ++j){
+                 let index = row+startingCol+j;
+                 arr[index] = curWord[j];
+             }
+         }
+         else{ //If not, the word's location must be randomized again
+             --i;
+         }
     }
 
 
 
     console.log(arr);
     //Placing random letters in unfilled spots in grid
-    for(let i=0; i<100; ++i) {
+    for(let j=0; j<100; ++j) {
         let rand = Math.floor(Math.random() * 25);
-        if(arr[i] == '0'){
-            arr[i] = letters[rand];
+        if(arr[j] == '0'){
+            arr[j] = letters[rand];
         }
     }
     
     return(arr);
+}
+
+function reverseWord(curWord){
+    reverse = "";
+    for(let i=curWord.length - 1; i>= 0; --i){
+        reverse += curWord[i];
+    }
+    return reverse;
 }
