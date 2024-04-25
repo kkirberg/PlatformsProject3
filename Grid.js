@@ -10,7 +10,7 @@ export default function Grid(){
 
     let i = 0;
     for(; i<words.length; ++i){
-        const insert = Math.floor(Math.random() * 4);
+        const insert = getRandomInt(0,8);
         console.log(insert)
         let curWord = words[i];
         
@@ -29,24 +29,35 @@ export default function Grid(){
                 curWord = reverseWord(curWord);
                 horizontalInsert(curWord);
                 break;
+            case 4:
+                diagonalInsertRight(curWord);
+                break;
+            case 5:
+                curWord = reverseWord(curWord);
+                diagonalInsertRight(curWord);
+                break;
+            case 6:
+                diagonalInsertLeft(curWord);
+                break;
+            case 7:
+                curWord = reverseWord(curWord);
+                diagonalInsertLeft(curWord);
+                break;
         }
-
-        //add all diagonal placements   
-
     }
 
     function verticalInsert(curWord){
         //Vertical insert
-        const startingRow =  Math.floor(Math.random() * (10 - curWord.length)) * 10;
-        const col = Math.floor(Math.random() * 10);
+        const startingRow =  getRandomInt(0,10 - curWord.length)* 10;
+        const col = getRandomInt(0, 10);
 
         //Checking if all spaces are empty
-        //If so, place all the letter of the word
+        //If so, place all the letters of the word
         let isValid = true;
         for(let j=0; j<curWord.length; ++j){
             let increment = j*10;
             let index = startingRow+col+increment;
-            if(arr[index] != '0'){
+            if(arr[index] != '0' && arr[index] != curWord[j]){
                 isValid = false;
             }
         }
@@ -64,15 +75,15 @@ export default function Grid(){
 
     function horizontalInsert(curWord){
          //Horizontal insert
-         const row = Math.floor(Math.random() * 10) * 10;
-         const startingCol = Math.floor(Math.random() * (10 - curWord.length));
+         const row = getRandomInt(0,10) * 10;
+         const startingCol = getRandomInt(0, 10 - curWord.length);
          
          //Checking if all spaces are empty
-         //If so, place all the letter of the word
+         //If so, place all the letters of the word
          let isValid = true;
          for(let j=0; j<curWord.length; ++j){
              let index = row+startingCol+j;
-             if(arr[index] != '0'){
+             if(arr[index] != '0' && arr[index] != curWord[j]){
                  isValid = false;
              }
          }
@@ -85,6 +96,60 @@ export default function Grid(){
          else{ //If not, the word's location must be randomized again
              --i;
          }
+    }
+
+    function diagonalInsertRight(curWord){
+        //diagonal insert going from top left to bottom right
+        const startingRow = getRandomInt(0,10 - curWord.length) * 10;
+        const startingCol = getRandomInt(0,10 - curWord.length);
+
+        //Checking if all spaces are empty
+        //If so, place all the letters of the word
+        let isValid = true;
+        for(let j=0; j<curWord.length; ++j){
+            let increment = j*10 + j;
+            let index = startingRow+startingCol+increment;
+            if(arr[index] != '0' && arr[index] != curWord[j]){
+                isValid = false;
+            }
+        }
+        if (isValid){
+            for(let j=0; j<curWord.length; ++j){
+                let increment = j*10 + j;
+                let index = startingRow+startingCol+increment;
+                arr[index] = curWord[j];
+            }
+        }
+        else{ //If not, the word's location must be randomized again
+            --i;
+        }
+    }
+
+    function diagonalInsertLeft(curWord){
+        //diagonal insert going from top left to bottom right
+        const startingRow = getRandomInt(curWord.length - 1, 10) * 10;
+        const startingCol = getRandomInt(curWord.length - 1, 10);
+
+        //Checking if all spaces are empty
+        //If so, place all the letters of the word
+        let isValid = true;
+        for(let j=0; j<curWord.length; ++j){
+            let increment = j*10 - j;
+            let index = startingRow+startingCol+increment;
+            if(arr[index] != '0' && arr[index] != curWord[j]){
+                isValid = false;
+            }
+        }
+        if (isValid){
+            for(let j=0; j<curWord.length; ++j){
+                let increment = j*10 - j;
+                let index = startingRow+startingCol+increment;
+                arr[index] = curWord[j];
+            }
+        }
+        else{ //If not, the word's location must be randomized again
+            --i;
+        }
     }
 
 
@@ -107,4 +172,8 @@ function reverseWord(curWord){
         reverse += curWord[i];
     }
     return reverse;
+}
+
+function getRandomInt(min, max){
+    return Math.floor(Math.random() * (max - min)) + min;
 }
