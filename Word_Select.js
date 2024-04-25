@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
 
-export default function Word_Selector(arr){ 
-    
+export default function Word_Selector(){ 
+    let array = Grid();
     return(
         <View style={styles.container}>
             <FlatList
