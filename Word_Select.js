@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
 import Grid from './Grid';
 
-export default function Word_Selector(){ 
+export default function Word_Selector({ route, navigation }){ 
     let array = Grid();
     return(
         <View style={styles.container}>

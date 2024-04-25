@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image } from 'react-native';
 
-export default function Home () {
+export default function Home ({ navigation }) {
     return(
         <View style={styles.container}>
             <Image style={styles.image} source={require('./wordsearchlogo.png')} />
             <Button title='Click to play Word Search Game!'
-                onPress={()=>console.log("button")} 
+                onPress={()=>navigation.navigate("Word_Select")} 
             />
         </View>
     )  
