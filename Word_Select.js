@@ -1,36 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
 import Grid from './Grid';
 
+let array = Grid();
+
 export default function Word_Selector({ route, navigation }){ 
-    let array = Grid();
+    
+
+    const [Letter, setLetter] = useState("");
+    const [Word, setWord] = useState("");
+    let currentString = "";
+
     return(
-        <View style={styles.container}>
+        <View>
             <FlatList
               data={array}
               numColumns={10}
               renderItem={({item}) => 
-              <Text style={styles.item}>{item}</Text>
-              }
+              <TouchableOpacity style={styles.item} onPress={()=>{if(item != ''){setLetter(item)}}}>
+                <Text>{item}</Text>
+              </TouchableOpacity>}
             />
+
+            <Text>The topic is </Text>
+            <Text>Your selected word is: {currentString + Letter}</Text>
+            
+              <Button title = "Submit" onPress={()=>{}} />
+              <Button title = "Clear" onPress={()=>setLetter("")} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    app: {
-        flex: 4, // the number of columns you want to devide the screen into
-        marginHorizontal: "auto",
-        width: 400
+      border: {
+        borderWidth: 1,
+        borderColor: "gray",
       },
+
       item: {
         flex: 1,
-        maxWidth: "25%", // 100% devided by the number of rows you want
+        width: 50,
         alignItems: "center",
         
-        // my visual styles; not important for the grid
-        padding: 15,
-        borderWidth: 2,
+        padding: 12,
+        borderWidth: 1,
         borderColor: "#fff"
       }
     });
