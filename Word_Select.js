@@ -42,6 +42,11 @@ export default function Word_Selector({ route, navigation }){
       for(i=0; i<=answers.length; ++i){
         if(Letters == answers[i]){
           setAnswers(answers.filter(a => a != answers[i]));
+          setLetters("");
+          //navigate to victory screen when player wins, for now navigating back to home
+          if(answers.length == 1){
+            navigation.navigate("Home");
+          }
         }
       }
     }
