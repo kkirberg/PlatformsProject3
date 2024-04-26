@@ -156,8 +156,8 @@ export default function Grid(){
 
     console.log(arr);
     //Placing random letters in unfilled spots in grid
-    for(let j=0; j<100; ++j) {
-        let rand = Math.floor(Math.random() * 25);
+    for(let j=0; j<arr.length; ++j) {
+        let rand = getRandomInt(0,26);
         if(arr[j] == '0'){
             arr[j] = letters[rand];
         }
