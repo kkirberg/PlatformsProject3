@@ -1,34 +1,125 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
 import Grid from './Grid';
+import API_Words from './API_Words';
 
 let array = Grid();
+let answers = API_Words();
 
 export default function Word_Selector({ route, navigation }){ 
     
 
     const [Letters, setLetters] = useState("");
-    const [Word, setWord] = useState("");
+    const [LetterIndex, setLetterIndex] = useState("");
+    const [Direction, setDirection] = useState("");
 
     return(
         <View>
             <FlatList
               data={array}
               numColumns={10}
-              renderItem={({item}) => 
-              <TouchableOpacity style={styles.item} onPress={()=>{if(item != ''){setLetters(Letters + item)}}}>
+              renderItem={({item, index}) => 
+              <TouchableOpacity style={styles.item} onPress={()=>{if(item != ''){AdjacencyDetector(item, index)}}}>
                 <Text>{item}</Text>
               </TouchableOpacity>}
             />
 
-            <Text>The topic is </Text>
+            <Text>The words are {answers} </Text>
             <Text>Your selected word is: {Letters}</Text>
             
-              <Button title = "Submit" onPress={()=>{}} />
-              <Button title = "Clear" onPress={()=>setLetters("")} />
+              <Button title = "Submit" onPress={CheckAnswer()} />
+              <Button title = "Clear" onPress={()=>{setLetters(""); setLetterIndex(""); setDirection("");}} />
         </View>
     );
+
+
+    //for topic issue: maybe have topic chooser on home screen and take function to add to Your topic is and API_words
+    //or, make another grid with all the answers and knock them off as they are guessed
+    function CheckAnswer() {
+      for(i=0; i<=answers.length; ++i){
+        if(Letters == answers[i]){
+          WordCheck(1);
+        }
+      }
+          WordCheck(0);
+    }
+
+    function WordCheck(Condition){
+      if (Condition==1){
+        //EDIT THIS FOR WORD SELECTION
+        console.log("Word is Selected");
+      }
+      else{
+        return;
+      }
+    }
+
+    function AdjacencyDetector(item, index) {
+      //0 Letters
+      if(Letters == ''){
+        setLetters(item);
+        setLetterIndex(index);
+      }
+
+      //1+ Letters
+      else{
+        //1st Letter
+        if (Direction == ''){
+          setLetters(Letters + item);
+          setLetterIndex(index);
+          //Right Square
+          if(index == LetterIndex+1){
+            setDirection(1);
+          }
+          //Left Square
+          else if(index == LetterIndex-1){
+            setDirection(2);
+          }
+          //Down Square
+          else if(index == LetterIndex+10){
+            setDirection(3);
+          }
+          //Up Square
+          else if(index == LetterIndex-10){
+            setDirection(4);
+          }
+          //Up Right
+          else if(index == LetterIndex-9){
+            setDirection(5);
+          }
+          //Up Left
+          else if(index == LetterIndex-11){
+            setDirection(6);
+          }
+          //Down Right
+          else if(index == LetterIndex+11){
+            setDirection(7);
+          }
+          //Down Left
+          else if(index == LetterIndex+9){
+            setDirection(8);
+          }
+        }
+        //2nd+ Letter Same Direction
+        else{
+          if((Direction == 1) && (index == LetterIndex+1)
+          || (Direction == 2) && (index == LetterIndex-1)
+          || (Direction == 3) && (index == LetterIndex+10)
+          || (Direction == 4) && (index == LetterIndex-10)
+          || (Direction == 5) && (index == LetterIndex-9)
+          || (Direction == 6) && (index == LetterIndex-11)
+          || (Direction == 7) && (index == LetterIndex+11)
+          || (Direction == 8) && (index == LetterIndex+9)
+          ){
+          setLetters(Letters + item);
+              setLetterIndex(index);
+          }
+        }
+      }
+    }
 }
+
+
 
 const styles = StyleSheet.create({
       border: {
