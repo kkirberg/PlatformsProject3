@@ -7,9 +7,8 @@ let array = Grid();
 export default function Word_Selector({ route, navigation }){ 
     
 
-    const [Letter, setLetter] = useState("");
+    const [Letters, setLetters] = useState("");
     const [Word, setWord] = useState("");
-    let currentString = "";
 
     return(
         <View>
@@ -17,16 +16,16 @@ export default function Word_Selector({ route, navigation }){
               data={array}
               numColumns={10}
               renderItem={({item}) => 
-              <TouchableOpacity style={styles.item} onPress={()=>{if(item != ''){setLetter(item)}}}>
+              <TouchableOpacity style={styles.item} onPress={()=>{if(item != ''){setLetters(Letters + item)}}}>
                 <Text>{item}</Text>
               </TouchableOpacity>}
             />
 
             <Text>The topic is </Text>
-            <Text>Your selected word is: {currentString + Letter}</Text>
+            <Text>Your selected word is: {Letters}</Text>
             
               <Button title = "Submit" onPress={()=>{}} />
-              <Button title = "Clear" onPress={()=>setLetter("")} />
+              <Button title = "Clear" onPress={()=>setLetters("")} />
         </View>
     );
 }
