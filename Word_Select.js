@@ -3,11 +3,9 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'reac
 import Grid from './Grid';
 import API_Words from './API_Words';
 
-let array = Grid();
-let answers = API_Words();
-
 export default function Word_Selector({ route, navigation }){ 
-    
+  const [array, setArray] = useState(Grid());
+  const [answers, setAnswers] = useState(API_Words());
 
     const [Letters, setLetters] = useState("");
     const [LetterIndex, setLetterIndex] = useState("");
@@ -24,11 +22,16 @@ export default function Word_Selector({ route, navigation }){
               </TouchableOpacity>}
             />
 
-            <Text>The words are {answers} </Text>
-            <Text>Your selected word is: {Letters}</Text>
+            <Text>Your selected letters are: {Letters}</Text>
             
-              <Button title = "Submit" onPress={CheckAnswer()} />
+            <Button title = "Submit" onPress={()=>CheckAnswer()} />
               <Button title = "Clear" onPress={()=>{setLetters(""); setLetterIndex(""); setDirection("");}} />
+            <Text>The remaining words are:</Text>
+            <FlatList
+             data={answers}
+             renderItem={({item}) => 
+                <Text>{item}</Text>}
+            />
         </View>
     );
 
@@ -38,19 +41,8 @@ export default function Word_Selector({ route, navigation }){
     function CheckAnswer() {
       for(i=0; i<=answers.length; ++i){
         if(Letters == answers[i]){
-          WordCheck(1);
+          setAnswers(answers.filter(a => a != answers[i]));
         }
-      }
-          WordCheck(0);
-    }
-
-    function WordCheck(Condition){
-      if (Condition==1){
-        //EDIT THIS FOR WORD SELECTION
-        console.log("Word is Selected");
-      }
-      else{
-        return;
       }
     }
 

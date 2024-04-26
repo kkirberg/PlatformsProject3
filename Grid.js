@@ -11,7 +11,6 @@ export default function Grid(){
     let i = 0;
     for(; i<words.length; ++i){
         const insert = getRandomInt(0,8);
-        console.log(insert)
         let curWord = words[i];
         
         switch(insert){
@@ -152,9 +151,6 @@ export default function Grid(){
         }
     }
 
-
-
-    console.log(arr);
     //Placing random letters in unfilled spots in grid
     for(let j=0; j<arr.length; ++j) {
         let rand = getRandomInt(0,26);
