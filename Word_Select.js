@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, ImageBackgroundComponent } from 'react-native';
 import Grid from './Grid';
 import API_Words from './API_Words';
 
 export default function Word_Selector({ route, navigation }){ 
   
-  const [array, setArray] = useState(Grid());
-  const [answers, setAnswers] = useState(API_Words());
+    const [array, setArray] = useState(Grid());
+    const [answers, setAnswers] = useState(API_Words());
 
     const [Letters, setLetters] = useState("");
     const [LetterIndex, setLetterIndex] = useState("");
     const [Direction, setDirection] = useState("");
+
+    //const customStyle = LetterIndex != '' ? styles.customStyle2 : styles.customStyle1;
+    //potential custom styling code?
 
     return(
         <View>
@@ -18,7 +21,7 @@ export default function Word_Selector({ route, navigation }){
               data={array}
               numColumns={10}
               renderItem={({item, index}) => 
-              <TouchableOpacity style={styles.item} onPress={()=>{if(item != ''){AdjacencyDetector(item, index)}}}>
+              <TouchableOpacity style={[styles.item, styles.customStyle2]} onPress={()=>{if(item != ''){AdjacencyDetector(item, index)}}}>
                 <Text>{item}</Text>
               </TouchableOpacity>}
             />
@@ -133,5 +136,12 @@ const styles = StyleSheet.create({
         padding: 12,
         borderWidth: 1,
         borderColor: "#fff"
+      },
+
+      customStyle1: {
+        backgroundColor: "#D3D3D3"
+      },
+      customStyle2: {
+        backgroundColor: "#ADD8E6"
       }
     });
