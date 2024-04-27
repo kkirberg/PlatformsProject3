@@ -14,6 +14,9 @@ export default function API_Words() {
         -Gary
     */
 
+    // https://www.datamuse.com/api/
+    //Potential API
+
     //temp array
     let words = ["CAT", "DOG", "MOUSE", "BULL", "TIGER", "LION", "EAGLE"];
     return(words);

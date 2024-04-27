@@ -4,6 +4,7 @@ import Grid from './Grid';
 import API_Words from './API_Words';
 
 export default function Word_Selector({ route, navigation }){ 
+  
   const [array, setArray] = useState(Grid());
   const [answers, setAnswers] = useState(API_Words());
 
