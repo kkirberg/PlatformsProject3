@@ -28,7 +28,7 @@ export default function Word_Selector({ route, navigation }){
 
             <Text>Your selected letters are: {Letters}</Text>
             
-            <Button title = "Submit" onPress={()=>CheckAnswer()} />
+              <Button title = "Submit" onPress={()=>CheckAnswer()} />
               <Button title = "Clear" onPress={()=>{setLetters(""); setLetterIndex(""); setDirection("");}} />
             <Text>The remaining words are:</Text>
             <FlatList
