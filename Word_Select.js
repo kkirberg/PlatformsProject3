@@ -65,7 +65,7 @@ export default function Word_Selector({ route, navigation }){
       //1+ Letters
       else{
         //1st Letter
-        if (Direction == ''){
+        if ((Direction == '') && (index != LetterIndex)){
           setLetters(Letters + item);
           setLetterIndex(index);
           //Right Square
