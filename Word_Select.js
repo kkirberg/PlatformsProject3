@@ -47,6 +47,8 @@ export default function Word_Selector({ route, navigation }){
         if(Letters == answers[i]){
           setAnswers(answers.filter(a => a != answers[i]));
           setLetters("");
+          setLetterIndex("");
+          setDirection("");
           //navigate to victory screen when player wins, for now navigating back to home
           if(answers.length == 1){
             navigation.navigate("Home");
