@@ -18,7 +18,7 @@ export default function API_Words() {
             for(let i=0; i<json.length; ++i){
                 console.log(json[i]);
                 if(checkIfNoun(json[i].tags) && validWord(json[i].word)){
-                    wordList = wordList.concat([json[i].word]);
+                    wordList = wordList.concat([json[i].word.toUpperCase()]);
                     wordListLength += json[i].word.length;
                     console.log(wordList);
                     console.log(wordListLength);
@@ -52,8 +52,8 @@ export default function API_Words() {
     //I think the problem has to do with the fetch function itself since it asynchronous and runs in the background
     /*Potential soln: create separate button to make answer list with user input as topic utilizing onPress feature
                       if user does not do this or topic is unusable, refer to a default list
-                     this may have to be perfomed inside home */
-    getListFromAPI();
+                      this may have to be perfomed inside home */
+    //getListFromAPI();
     return(words);
 }
 
