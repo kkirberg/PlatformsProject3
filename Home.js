@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image, TextInput } from 'react-native';
 
 export default function Home ({ navigation }) {
   
-  let topic = 'animals';
-  const api_string = 'https://api.datamuse.com/words?max=50&ml=' + topic + "&topic=" + topic;
+  const [Topic, setTopic] = useState('Topic');
+  const api_string = 'https://api.datamuse.com/words?max=50&ml=' + Topic + "&topic=" + Topic;
   let wordList = [];
   let wordListLength = 0;
+
   function getListFromAPI() {
     wordList = [];
     wordListLength = 0;
@@ -35,6 +36,12 @@ export default function Home ({ navigation }) {
   return(
         <View style={styles.container}>
             <Image style={styles.image} source={require('./wordsearchlogo.png')} />
+            <TextInput 
+              style={styles.input}
+              onChangeText={setTopic}
+              placeholder="Enter Topic"
+              textAlign = "center"
+              />
             <Button title='Set Topic'
                 onPress={() => getListFromAPI()} />
             <Button title='Click to Play!'
@@ -83,4 +90,10 @@ const styles = StyleSheet.create({
       width: 400,
       height: 400,
     },
+    input: {
+      height: 40,
+      margin: 12,
+      borderWidth: 1,
+      padding: 10,
+    }
   });  

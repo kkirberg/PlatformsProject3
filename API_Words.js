@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button } from 'react-native';
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 export default function API_Words() {
     //Put API here
@@ -8,22 +7,23 @@ export default function API_Words() {
 
     let topic = 'animals';
     const api_string = 'https://api.datamuse.com/words?max=50&ml=' + topic + "&topic=" + topic;
-    let wordList = [];
-    let wordListLength = 0;
+    
     function getListFromAPI() {
+        let wordList = [];
+        let wordListLength = 0;
         fetch(api_string)
-        .then((response) => response.json())
-        .then((json) => {
+        .then(response => response.json())
+        .then(json => {
             console.log(json);
             for(let i=0; i<json.length; ++i){
                 console.log(json[i]);
                 if(checkIfNoun(json[i].tags) && validWord(json[i].word)){
-                    wordList = wordList.concat([json[i].word.toUpperCase()]);
+                    wordList = wordList.concat([json[i].word]);
+                    console.log(json[i].word.length);
                     wordListLength += json[i].word.length;
-                    console.log(wordList);
-                    console.log(wordListLength);
+                    //console.log(wordList);
                     if (wordListLength > 30){
-                        //console.log(wordList);
+                        console.log(wordList);
                         return wordList;
                     }
                 }
@@ -34,6 +34,7 @@ export default function API_Words() {
             console.error(error);
         });
     }
+    
     
     /* Due to the diagonal placements, it is much more common for the insertions in the grid to fail
         To prevent an infinite loop, I would recommend keeping a count of the total characters of all
@@ -49,12 +50,14 @@ export default function API_Words() {
 
     //temp array
     let words = ["CAT", "DOG", "MOUSE", "BULL", "TIGER", "LION", "EAGLE"];
-    //I think the problem has to do with the fetch function itself since it asynchronous and runs in the background
-    /*Potential soln: create separate button to make answer list with user input as topic utilizing onPress feature
-                      if user does not do this or topic is unusable, refer to a default list
-                      this may have to be perfomed inside home */
-    //getListFromAPI();
-    return(words);
+    // I can connect to the above API and access what I want, but right when I try to return the array of words from the
+    // function I get nothing and don't know why. Can one of you guys fix it? -Gary
+    
+    let wordsList = getListFromAPI();
+    console.log(wordsList);
+    //console.log(words);
+    //console.log(wordsList.length);
+    return(wordsList);
 }
 
 function checkIfNoun(tags){
