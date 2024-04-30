@@ -25,15 +25,15 @@ export default function Word_Selector({ route, navigation }){
               </TouchableOpacity>}
             />
 
-            <Text>Your selected letters are: {Letters}</Text>
+            <Text style={styles.wordSearchText}>Selected: {Letters}</Text>
             
               <Button title = "Submit" onPress={()=>CheckAnswer()} />
               <Button title = "Clear" onPress={()=>{setLetters(""); setLetterIndex(""); setDirection("");}} />
-            <Text>The remaining words are:</Text>
+            <Text style={styles.wordSearchText}>Remaining:</Text>
             <FlatList
              data={answers}
              renderItem={({item}) => 
-                <Text>{item}</Text>}
+                <Text style={styles.wordsText}>{item}</Text>}
             />
         </View>
     );
@@ -144,5 +144,23 @@ const styles = StyleSheet.create({
       },
       customStyle2: {
         backgroundColor: "#ADD8E6"
+      },
+      wordSearchText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#1e3799', // Rich blue
+        textAlign: 'left',
+        textTransform: 'uppercase',
+        letterSpacing: 1.5,
+        fontFamily: 'Arial'
+      },
+      wordsText: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#ff6347', // Tomato red
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        letterSpacing: 1,
+        fontFamily: 'Helvetica',
       }
     });

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, KeyboardAvoidingView, Button, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image, TextInput } from 'react-native';
 import {KeyboardAwareFlatList, KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function Home ({ navigation }) {
   
   const [Topic, setTopic] = useState('Topic');
   const api_string = 'https://api.datamuse.com/words?max=50&ml=' + Topic + "&topic=" + Topic;
-  let wordList = [];
   const defaultList = ["CAT", "DOG", "MOUSE", "BULL", "TIGER", "LION", "EAGLE"];
+  let wordList = defaultList;
   let wordListLength = 0;
 
   function getListFromAPI() {
@@ -51,8 +51,7 @@ export default function Home ({ navigation }) {
             <Button title='Set Topic'
                 onPress={() => getListFromAPI()} />
             <Button title='Click to Play!'
-                onPress={()=> navigation.navigate("Word Select", wordList)} 
-            />
+                onPress={() => navigation.navigate("Word Select", wordList)} />
           </KeyboardAwareScrollView>
         </View> 
     )  
