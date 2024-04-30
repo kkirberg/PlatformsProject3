@@ -4,8 +4,9 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image, Text
 export default function Home ({ navigation }) {
   
   const [Topic, setTopic] = useState('Topic');
-  const api_string = 'https://api.datamuse.com/words?max=200&ml=' + Topic + "&topic=" + Topic;
+  const api_string = 'https://api.datamuse.com/words?max=50&ml=' + Topic + "&topic=" + Topic;
   let wordList = [];
+  const defaultList = ["CAT", "DOG", "MOUSE", "BULL", "TIGER", "LION", "EAGLE"];
   let wordListLength = 0;
 
   function getListFromAPI() {
@@ -14,22 +15,24 @@ export default function Home ({ navigation }) {
     fetch(api_string)
     .then((response) => response.json())
     .then((json) => {
-      while (wordListLength < 30){
-        const index = getRandomInt(0, json.length);
+      for(let i=0; wordListLength < 30 && i<json.length; ++i){
         let inList = false;
-        for(let i=0; i<wordList.length; ++i){
-          if(wordList[i] == json[index].word.toUpperCase()){
+        for(let j=0; i<wordList.length; ++j){
+          if(wordList[j] == json[i].word.toUpperCase()){
             inList = true;
           }
         }
-        if(!inList && checkIfNoun(json[index].tags) && validWord(json[index].word)){
-          wordList = wordList.concat([json[index].word.toUpperCase()]);
-          wordListLength += json[index].word.length;
-          //console.log(wordList);
-          //console.log(wordListLength);
+        if(!inList && checkIfNoun(json[i].tags) && validWord(json[i].word)){
+          wordList = wordList.concat([json[i].word.toUpperCase()]);
+          wordListLength += json[i].word.length;
+          console.log(wordList);
+          console.log(wordListLength);
+          if(wordListLength > 30){
+            return 
+          }
         }
       }
-      return wordList;
+      wordList = defaultList;
     })
     .catch((error) => {
         console.error(error);
@@ -63,13 +66,13 @@ function checkIfNoun(tags){
   return false;
 }
 
-// Word is valid for placement if less than 10 letters and contains no spaces
+// Word is valid for placement if less than 10 letters and contains no spaces or dashes
 function validWord(word){
   if(word.length > 10){
       return false
   }
   for(let i=0; i<word.length; ++i){
-      if(word[i] == " "){
+      if(word[i] == " " || word[i] == "-"){
           return false;
       }
   }
