@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, Image, TextInput } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, KeyboardAvoidingView, Button, Image, TextInput } from 'react-native';
+import {KeyboardAwareFlatList, KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function Home ({ navigation }) {
   
@@ -25,8 +26,6 @@ export default function Home ({ navigation }) {
         if(!inList && checkIfNoun(json[i].tags) && validWord(json[i].word)){
           wordList = wordList.concat([json[i].word.toUpperCase()]);
           wordListLength += json[i].word.length;
-          console.log(wordList);
-          console.log(wordListLength);
           if(wordListLength > 30){
             return 
           }
@@ -41,6 +40,7 @@ export default function Home ({ navigation }) {
   
   return(
         <View style={styles.container}>
+          <KeyboardAwareScrollView>
             <Image style={styles.image} source={require('./wordsearchlogo.png')} />
             <TextInput 
               style={styles.input}
@@ -51,9 +51,10 @@ export default function Home ({ navigation }) {
             <Button title='Set Topic'
                 onPress={() => getListFromAPI()} />
             <Button title='Click to Play!'
-                onPress={()=> navigation.navigate("Word_Select", wordList)} 
+                onPress={()=> navigation.navigate("Word Select", wordList)} 
             />
-        </View>
+          </KeyboardAwareScrollView>
+        </View> 
     )  
 }
 
