@@ -50,7 +50,7 @@ export default function Word_Selector({ route, navigation }){
           setDirection("");
           //navigate to victory screen when player wins, for now navigating back to home
           if(answers.length == 1){
-            navigation.navigate("Home");
+            navigation.navigate("Victory");
           }
         }
       }

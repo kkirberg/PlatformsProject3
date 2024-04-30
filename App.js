@@ -7,6 +7,7 @@ const Stack = createNativeStackNavigator();
 
 import Home from './Home';
 import Word_Select from './Word_Select';
+import Victory from './Victory';
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Home'>
         <Stack.Screen name='Home' component={Home} />
         <Stack.Screen name='Word_Select' component={Word_Select} />
+        <Stack.Screen name='Victory' component={Victory} />
       </Stack.Navigator>
     </NavigationContainer>
   );
