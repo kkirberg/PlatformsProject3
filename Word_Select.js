@@ -66,7 +66,7 @@ export default function Word_Selector({ route, navigation }){
       //1+ Letters
       else{
         //1st Letter
-        if ((Direction == '') && (index != LetterIndex)){
+        if ((Direction == '') && isIndexAdjacent()){
           setLetters(Letters + item);
           setLetterIndex(index);
           //Right Square
@@ -116,12 +116,15 @@ export default function Word_Selector({ route, navigation }){
           setLetters(Letters + item);
               setLetterIndex(index);
           }
+          function isIndexAdjacent(){
+            return (index == LetterIndex+1 || index == LetterIndex-1 || index == LetterIndex+10 ||
+              index == LetterIndex-10 || index == LetterIndex-9 || index == LetterIndex-11 ||
+              index == LetterIndex+11 || index == LetterIndex+9);
+          }
         }
       }
     }
 }
-
-
 
 const styles = StyleSheet.create({
       border: {
