@@ -66,6 +66,12 @@ export default function Word_Selector({ route, navigation }){
       //1+ Letters
       else{
         //1st Letter
+        function isIndexAdjacent(){
+          return (index == LetterIndex+1 || index == LetterIndex-1 || index == LetterIndex+10 ||
+            index == LetterIndex-10 || index == LetterIndex-9 || index == LetterIndex-11 ||
+            index == LetterIndex+11 || index == LetterIndex+9);
+        }
+        
         if ((Direction == '') && isIndexAdjacent()){
           setLetters(Letters + item);
           setLetterIndex(index);
@@ -115,11 +121,6 @@ export default function Word_Selector({ route, navigation }){
           ){
           setLetters(Letters + item);
               setLetterIndex(index);
-          }
-          function isIndexAdjacent(){
-            return (index == LetterIndex+1 || index == LetterIndex-1 || index == LetterIndex+10 ||
-              index == LetterIndex-10 || index == LetterIndex-9 || index == LetterIndex-11 ||
-              index == LetterIndex+11 || index == LetterIndex+9);
           }
         }
       }
